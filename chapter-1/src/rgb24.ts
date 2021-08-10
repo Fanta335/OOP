@@ -1,4 +1,8 @@
 class RGB24 {
+  //この"!"はdefinite assignment assertion operatorと呼ばれるもの。
+  //メンバ変数をconstructor以外（クラスメソッドやimportしたライブラリなど）で初期化したい場合につける。付けないと、「この変数はnullかもしれません！」とエラーが出る。
+  //https://www.typescriptlang.org/docs/handbook/2/classes.html#--strictpropertyinitialization
+  // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
   private red!: number;
   private green!: number;
   private blue!: number;

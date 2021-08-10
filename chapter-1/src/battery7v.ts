@@ -2,10 +2,11 @@ class Battery7v {
   manufacturer: string;
   model: string;
   //staticを使用することでインスタンスを作成せずにメンバ変数にアクセスすることができる
-  static readonly voltage: number = 7.2;
-  static type: string = "Lithium-Ion";
+  //デフォルト値を設定するときは、型は省略できる。
+  static readonly voltage = 7.2;
+  static type = "Lithium-Ion";
   //tsのdefault valueはundefinedなので、0を設定しておく
-  static manufacturedCount: number = 0;
+  static manufacturedCount = 0;
   ampHours: number;
   weightKg: number;
   dimensionMm: number[];
