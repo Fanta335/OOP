@@ -52,7 +52,7 @@ class Person {
   age = 20;
   heightM: number;
   weightKg: number;
-  wallet: Wallet;
+  wallet: Wallet | null;
 
   constructor(firstName: string, lastName: string, x: number, y: number, z: number) {
     this.firstName = firstName;
@@ -73,5 +73,27 @@ class Person {
       return 0;
     }
     return this.wallet.getTotalMoney();
+  }
+
+  dropWallet() {
+    const w = this.wallet;
+    this.wallet = null;
+    return w;
+  }
+
+  addWallet(wallet: Wallet) {
+    if (this.wallet === null) this.wallet = wallet;
+  }
+}
+
+class Address {
+  private address: string;
+  private city: string;
+  private country: string;
+
+  constructor(address: string, city: string, country: string) {
+    this.address = address;
+    this.city = city;
+    this.country = country;
   }
 }
