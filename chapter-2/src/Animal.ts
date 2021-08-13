@@ -117,7 +117,7 @@ class Mammal extends Animal {
 
     this._furLengthCm = furLengthCm;
     this._furType = furType;
-    this._mammaryGland = (this._biologicalSex === "female");
+    this._mammaryGland = this._biologicalSex === "female";
     this._avgBodyTemperatureC = avgBodyTemperatureC;
     this._bodyTemperatureC = this._avgBodyTemperatureC;
   }
@@ -193,6 +193,32 @@ class Mammal extends Animal {
   public adjustBodyHeat() {
     this._bodyTemperatureC = this._avgBodyTemperatureC;
   }
+
+  public move() {
+    if (!this.isAlive()) return;
+    console.log("This mammal is moving...");
+    console.log();
+  }
+
+  public mammalInformation() {
+    return (
+      "This is a mammal with the following - " +
+      "fur:" +
+      this._furType +
+      "/teethReplaced:" +
+      (this._toothCounter > 0) +
+      "/Pregnant:" +
+      this.isPregnant() +
+      "/Body Temperature:" +
+      this._bodyTemperatureC
+    );
+  }
+
+  public eat() {
+    super.eat();
+    this.bite();
+    console.log("this" + this._species + " is eating with its single lower jaw");
+  }
 }
 
 let cow = new Animal("Cow", 1.8, 454.5, 730, "female");
@@ -200,26 +226,33 @@ let cow = new Animal("Cow", 1.8, 454.5, 730, "female");
 
 // cow.eat();
 // cow.sleep();
-
 // console.log(cow.status());
-
 // cow.setAsHungry();
 // cow.setAsSleepy();
-
 // console.log(cow.status());
-
 // cow.die();
-
 // console.log(cow.status());
 
-let tigerF = new Mammal("Tiger", 0.9, 140, 4745, "female", 1.1, "Tiger Hair", 38.5);
-let tigerM = new Mammal("Tiger", 1.1, 280, 4045, "male", 1.2, "Tiger Hair", 38.5);
-console.log(tigerF);
-console.log(tigerM);
+// let tigerF = new Mammal("Tiger", 0.9, 140, 4745, "female", 1.1, "Tiger Hair", 38.5);
+// let tigerM = new Mammal("Tiger", 1.1, 280, 4045, "male", 1.2, "Tiger Hair", 38.5);
+// console.log(tigerF);
+// console.log(tigerM);
 
-tigerM.bite();
-tigerM.replaceTeeth();
-tigerM.bite();
-tigerF.produceMilk();
-tigerF.mate(tigerM);
-tigerF.produceMilk();
+// tigerM.bite();
+// tigerM.replaceTeeth();
+// tigerM.bite();
+// tigerF.produceMilk();
+// tigerF.mate(tigerM);
+// tigerF.produceMilk();
+
+let cow2 = new Mammal("Cattle", 1.8,454.5,730, "female", 1.4, "Cowhide", 32.4);
+console.log(cow2);
+
+
+let bull = new Mammal("Cattle", 1.8,454.5,730, "male", 1.1, "Cowhide", 30.8);
+console.log(bull);
+let bullAnimal = new Animal("Cattle", 1.8,454.5,730, "male");
+bull.move();
+bullAnimal.move();
+bull.eat();
+bullAnimal.eat();
