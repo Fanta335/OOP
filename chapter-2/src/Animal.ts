@@ -1,6 +1,3 @@
-import { timingSafeEqual } from "crypto";
-import { abort } from "process";
-
 class BMI {
   private _heightM: number;
   private _weightKg: number;
@@ -147,11 +144,11 @@ class Mammal extends Animal {
 
     if (this._species !== mammal._species) return;
 
-    if (this._biologicalSex === "female" && mammal._biologicalSex === "male") this.fertalize();
-    else if (this._biologicalSex === "male" && mammal._biologicalSex === "female") mammal.fertalize();
+    if (this._biologicalSex === "female" && mammal._biologicalSex === "male") this.fertilize();
+    else if (this._biologicalSex === "male" && mammal._biologicalSex === "female") mammal.fertilize();
   }
 
-  public fertalize() {
+  public fertilize() {
     if (!this.isAlive()) return;
 
     this._isPregnant = true;
