@@ -141,12 +141,12 @@ function shapePrinter(obj: Shape2D) {
   console.log();
 }
 
-let obj1 = new Square(4);
-let obj2 = new Rectangle(3,5);
-let obj3 = new Circle(9);
-let obj4 = new Pentagon(4);
+// let obj1 = new Square(4);
+// let obj2 = new Rectangle(3,5);
+// let obj3 = new Circle(9);
+// let obj4 = new Pentagon(4);
 
-shapePrinter(obj1);
-shapePrinter(obj2);
-shapePrinter(obj3);
-shapePrinter(obj4);
+// shapePrinter(obj1);
+// shapePrinter(obj2);
+// shapePrinter(obj3);
+// shapePrinter(obj4);

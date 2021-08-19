@@ -125,7 +125,29 @@ class IntegerArrayList extends AbstractListInteger {
   }
 }
 
-// class IntegerLinkedList extends AbstractListInteger{}
+// class IntegerLinkedList extends AbstractListInteger{
+//   private
+
+//   constructor();
+//   constructor(arr:number[]);
+//   constructor(arr?:number[]){
+//     if(arr === undefined) super();
+//     else super(arr);
+//   }
+
+//   public get originalList(){
+//     return super.originalList;
+//   }
+
+//   public set originalList(elements: number[]){
+//     super.originalList = elements;
+//   }
+
+//   public get(position: number):number{
+
+//   }
+
+// }
 
 let arrayList1 = new IntegerArrayList([1, 2, 3, 4, 5, 6]);
 console.log(arrayList1.originalList);
