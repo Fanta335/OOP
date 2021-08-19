@@ -9,12 +9,25 @@ interface Edible {
   calories(): number;
 }
 
-class Person implements Audible {
+interface PhysicsObject {
+  workToMove(m: number): number;
+  density(): number;
+  weight(g: number): number;
+}
+
+interface Lenses {
+  lightRange(): [number, number];
+  see(object: {}): void;
+}
+
+class Person implements Audible, PhysicsObject, Lenses {
   private _firstName: string;
   private _lastName: string;
   private _heightM: number;
   private _weightKg: number;
   private _age: number;
+  private _density = 1;
+  private _lightRange:[number, number] = [380, 780];
 
   constructor(firstName: string, lastName: string, heightM: number, weightKg: number, age: number) {
     this._firstName = firstName;
@@ -42,6 +55,26 @@ class Person implements Audible {
 
   public soundLevel() {
     return this._age > 16 ? 60 : 65;
+  }
+
+  public workToMove(m:number){
+    return m * 120;
+  }
+
+  public density(){
+    return this._density;
+  }
+
+  public weight(g:number){
+    return this._weightKg * g;
+  }
+
+  public lightRange(){
+    return this._lightRange;
+  }
+
+  public see(object:{}){
+    console.log("This person sees " + object + " throungh its eyes.");
   }
 }
 
@@ -170,8 +203,11 @@ let obj3 = new Cow(1300);
 let obj4 = new Truck(3230.5);
 let obj5 = new Violin();
 
-personInteractsWithObject(ashley, obj1);
-personInteractsWithObject(ashley, obj2);
+// personInteractsWithObject(ashley, obj1);
+// personInteractsWithObject(ashley, obj2);
 
-personInteractsWithObject(ashley, obj3);
-personEatsEdible(ashley, obj3);
+// personInteractsWithObject(ashley, obj3);
+// personEatsEdible(ashley, obj3);
+
+console.log(ashley.weight(9.8));
+ashley.see(obj1);
