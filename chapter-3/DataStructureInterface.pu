@@ -1,0 +1,15 @@
+@startuml dataStructureInterface
+interface Stack
+interface Queue
+interface Deque
+abstract class AbstractList
+class ArrayList
+class LinkedList
+class NodeInt
+
+Stack <|.. Deque
+Queue <|.. Deque
+Deque <|.. AbstractList
+AbstractList <|-- ArrayList
+AbstractList <|-- LinkedList
+@enduml
