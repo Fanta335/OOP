@@ -86,6 +86,11 @@ class MyQueue implements QueueInt {
 
     return temp.data;
   }
+
+  peekFirst(): number | undefined {
+    if (this._head === undefined) return undefined;
+    return this._head.data;
+  }
 }
 
 class MyDequeInt implements DequeInt {
@@ -285,6 +290,55 @@ class IntegerArrayList extends AbstractListInteger {
   }
 }
 
+// 双方向リスト
+// class IntegerLinkedList extends AbstractListInteger {
+//   private _head: NodeInt | undefined;
+//   private _tail: NodeInt | undefined;
+
+//   constructor();
+//   constructor(arr: number[]);
+//   constructor(arr?: number[]) {
+//     if (arr === undefined) {
+//       super();
+//       this._head = undefined;
+//       this._tail = undefined;
+//       return;
+//     }
+
+//     super(arr);
+//     this._head = new NodeInt(arr[0]);
+//     let currentNode = this._head;
+//     for (let i = 1; i < arr.length; i++) {
+//       currentNode.next = new NodeInt(arr[i]);
+//       currentNode.next.prev = currentNode;
+//       currentNode = currentNode.next;
+//     }
+//     this._tail = currentNode;
+//   }
+
+//   public get originalList(): number[] {
+//     return super.originalList;
+//   }
+
+//   public set originalList(elements: number[]) {
+//     super.originalList = elements;
+//   }
+
+//   // tailに追加する
+//   public add(element: number): void;
+//   public add(elements: number[]): void;
+//   public add(elementOrElements: number | number[]): void {
+//     if (typeof elementOrElements === "number") {
+//       let arr = this.originalList;
+//       arr.push(elementOrElements);
+//       this.originalList = arr;
+
+//       if(this._head === undefined) this._head = new NodeInt(elementOrElements);
+
+//     } else this.originalList.concat(elementOrElements);
+//   }
+// }
+
 function createDeque(arr: number[]): MyDequeInt {
   let deque = new MyDequeInt();
   deque.push(arr[0]);
@@ -296,8 +350,13 @@ function createDeque(arr: number[]): MyDequeInt {
   return deque;
 }
 
-let deque = createDeque([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-console.log(deque.peekFirst());
-console.log(deque.peekLast());
-console.log(deque.pop());
-console.log(deque.peekLast());
+
+
+// let deque = createDeque([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+// console.log(deque.peekFirst());
+// console.log(deque.peekLast());
+// console.log(deque.pop());
+// console.log(deque.peekLast());
+
+// let ll = new IntegerLinkedList([1,2,3,4]);
+// console.log(ll);
