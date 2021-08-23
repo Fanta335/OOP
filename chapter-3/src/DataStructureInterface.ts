@@ -1,44 +1,44 @@
-interface StackInt {
-  peekLast(): number | undefined;
-  pop(): number | undefined;
-  push(data: number): void;
+interface Stack<E> {
+  peekLast(): E | undefined;
+  pop(): E | undefined;
+  push(data: E): void;
 }
 
-interface QueueInt {
-  peekFirst(): number | undefined;
-  poll(): number | undefined;
-  push(data: number): void;
+interface Queue<E> {
+  peekFirst(): E | undefined;
+  poll(): E | undefined;
+  push(data: E): void;
 }
 
-interface DequeInt extends StackInt, QueueInt {
-  poll(): number | undefined;
-  addFirst(data: number): void;
+interface Deque<E> extends Stack<E>, Queue<E> {
+  poll(): E | undefined;
+  addFirst(data: E): void;
 }
 
-class NodeInt {
-  public data: number | undefined;
-  public prev: NodeInt | undefined;
-  public next: NodeInt | undefined;
+class Node<E> {
+  public data: E | undefined;
+  public prev: Node<E> | undefined;
+  public next: Node<E> | undefined;
 
-  constructor(data: number) {
+  constructor(data: E) {
     this.data = data;
   }
 }
 
-class MyStack implements StackInt {
-  private _head: NodeInt | undefined;
+class MyStack<E> implements Stack<E> {
+  private _head: Node<E> | undefined;
 
   constructor() {
     this._head = undefined;
   }
 
-  push(data: number): void {
-    let node = new NodeInt(data);
+  push(data: E): void {
+    let node = new Node(data);
     node.next = this._head;
     this._head = node;
   }
 
-  pop(): number | undefined {
+  pop(): E | undefined {
     if (this._head === undefined) return undefined;
 
     let temp = this._head;
@@ -46,15 +46,15 @@ class MyStack implements StackInt {
     return temp.data;
   }
 
-  peekLast(): number | undefined {
+  peekLast(): E | undefined {
     if (this._head === undefined) return undefined;
     return this._head.data;
   }
 }
 
-class MyQueue implements QueueInt {
-  private _head: NodeInt | undefined;
-  private _tail: NodeInt | undefined;
+class MyQueue<E> implements Queue<E> {
+  private _head: Node<E> | undefined;
+  private _tail: Node<E> | undefined;
 
   constructor() {
     this._head = undefined;
@@ -62,20 +62,20 @@ class MyQueue implements QueueInt {
   }
 
   // 末尾に要素を追加する
-  push(data: number): void {
+  push(data: E): void {
     if (this._head === undefined) {
-      this._head = new NodeInt(data);
+      this._head = new Node(data);
     } else if (this._tail === undefined) {
-      this._tail = new NodeInt(data);
+      this._tail = new Node(data);
       this._head.next = this._tail;
     } else {
-      this._tail.next = new NodeInt(data);
+      this._tail.next = new Node(data);
       this._tail = this._tail.next;
     }
   }
 
   // 先頭から要素を削除し、削除した要素を返す
-  poll(): number | undefined {
+  poll(): E | undefined {
     if (this._head === undefined) return undefined;
     let temp = this._head;
 
@@ -87,51 +87,51 @@ class MyQueue implements QueueInt {
     return temp.data;
   }
 
-  peekFirst(): number | undefined {
+  peekFirst(): E | undefined {
     if (this._head === undefined) return undefined;
     return this._head.data;
   }
 }
 
-class MyDequeInt implements DequeInt {
-  private _head: NodeInt | undefined;
-  private _tail: NodeInt | undefined;
+class MyDeque<E> implements Deque<E> {
+  private _head: Node<E> | undefined;
+  private _tail: Node<E> | undefined;
 
   constructor() {
     this._head = undefined;
     this._tail = undefined;
   }
 
-  peekLast(): number | undefined {
+  peekLast(): E | undefined {
     if (this._tail === undefined) return undefined;
     return this._tail.data;
   }
 
-  peekFirst(): number | undefined {
+  peekFirst(): E | undefined {
     if (this._head === undefined) return undefined;
     return this._head.data;
   }
 
   // リストの先頭に要素を追加する
-  addFirst(data: number) {
+  addFirst(data: E) {
     if (this._head === undefined) {
-      this._head = new NodeInt(data);
+      this._head = new Node(data);
       this._tail = this._head;
     }
 
-    let node = new NodeInt(data);
+    let node = new Node(data);
     this._head.prev = node;
     node.next = this._head;
     this._head = node;
   }
 
   // リストの末尾に要素を追加する
-  push(data: number): void {
+  push(data: E): void {
     if (this._head === undefined) {
-      this._head = new NodeInt(data);
+      this._head = new Node(data);
       this._tail = this._head;
     } else {
-      let node = new NodeInt(data);
+      let node = new Node(data);
       // this._tailにはthis._headが割り当てられているのでundefinedではない
       this._tail!.next = node;
       node.prev = this._tail;
@@ -140,7 +140,7 @@ class MyDequeInt implements DequeInt {
   }
 
   // リストの末尾の要素を削除し、削除した要素を返します。
-  pop(): number | undefined {
+  pop(): E | undefined {
     if (this._tail === undefined) return undefined;
 
     let temp = this._tail;
@@ -152,7 +152,7 @@ class MyDequeInt implements DequeInt {
   }
 
   // リストの先頭の要素を削除し、削除した要素を返します。
-  poll(): number | undefined {
+  poll(): E | undefined {
     if (this._head === undefined) return undefined;
 
     let temp = this._head;
@@ -163,12 +163,12 @@ class MyDequeInt implements DequeInt {
   }
 }
 
-abstract class AbstractListInteger {
-  protected _initialList: number[];
+abstract class AbstractList<E> {
+  protected _initialList: E[];
 
   constructor();
-  constructor(arr: number[]);
-  constructor(arr?: number[]) {
+  constructor(arr: E[]);
+  constructor(arr?: E[]) {
     if (arr === undefined) this._initialList = [];
     else this._initialList = arr;
   }
@@ -177,28 +177,28 @@ abstract class AbstractListInteger {
     return this._initialList;
   }
 
-  public set originalList(elements: number[]) {
+  public set originalList(elements: E[]) {
     this._initialList = elements;
   }
 
-  // AbstractListIntegerが実装しなければならないメソッド。
-  public abstract get(position: number): number;
-  public abstract add(element: number): void; // リストの最後に追加します。
-  public abstract add(elements: number[]): void; // リストの最後の要素に追加します。
-  public abstract pop(): number | undefined; // リストの最後から削除します。削除した要素を返します。
-  public abstract addAt(position: number, element: number): void; // 指定された位置に要素を追加します。
-  public abstract addAt(position: number, elements: number[]): void; // 指定された位置に複数の要素を追加します。
-  public abstract removeAt(position: number): number; // 指定した位置にある要素を削除します。削除した要素を返します。
+  // AbstractListが実装しなければならないメソッド。
+  public abstract get(position: number): E;
+  public abstract add(element: E): void; // リストの最後に追加します。
+  public abstract add(elements: E[]): void; // リストの最後の要素に追加します。
+  public abstract pop(): E | undefined; // リストの最後から削除します。削除した要素を返します。
+  public abstract addAt(position: number, element: E): void; // 指定された位置に要素を追加します。
+  public abstract addAt(position: number, elements: E[]): void; // 指定された位置に複数の要素を追加します。
+  public abstract removeAt(position: number): E | number; // 指定した位置にある要素を削除します。削除した要素を返します。
   public abstract removeAllAt(start: number): void; // 指定された位置から始まるすべての要素を削除します。
   public abstract removeAllAt(start: number, end: number): void; // startからendまでの全ての要素を削除します。
-  public abstract subList(start: number): AbstractListInteger; // AbstractListIntegerの部分リストを、指定された位置から最後まで返します。
-  public abstract subList(start: number, end: number): AbstractListInteger; // startからendまでのAbstractListIntegerの部分リストを返します。
+  public abstract subList(start: number): AbstractList<E>; // AbstractListの部分リストを、指定された位置から最後まで返します。
+  public abstract subList(start: number, end: number): AbstractList<E>; // startからendまでのAbstractListの部分リストを返します。
 }
 
-class IntegerArrayList extends AbstractListInteger {
+class ArrayList<E> extends AbstractList<E> {
   constructor();
-  constructor(arr: number[]);
-  constructor(arr?: number[]) {
+  constructor(arr: E[]);
+  constructor(arr?: E[]) {
     if (arr === undefined) super();
     else super(arr);
   }
@@ -207,7 +207,7 @@ class IntegerArrayList extends AbstractListInteger {
     return super.originalList;
   }
 
-  public set originalList(elements: number[]) {
+  public set originalList(elements: E[]) {
     super.originalList = elements;
   }
 
@@ -215,36 +215,38 @@ class IntegerArrayList extends AbstractListInteger {
     return this.originalList[position];
   }
 
-  public add(element: number): void;
-  public add(elements: number[]): void;
-  public add(elementOrElements: number | number[]): void {
-    if (typeof elementOrElements === "number") {
+  public add(element: E): void;
+  public add(elements: E[]): void;
+  public add(elementOrElements: E | E[]): void {
+    if (elementOrElements instanceof Array) {
+      this.originalList.concat(elementOrElements);
+    } else {
       let arr = this.originalList;
       arr.push(elementOrElements);
       this.originalList = arr;
-    } else this.originalList.concat(elementOrElements);
+    }
   }
 
-  public pop(): number | undefined {
+  public pop(): E | undefined {
     let ele = this.originalList.pop();
     if (ele !== undefined) return ele;
     return undefined;
   }
 
-  public addAt(position: number, element: number): void;
-  public addAt(position: number, elements: number[]): void;
-  public addAt(position: number, elementOrElements: number | number[]): void {
+  public addAt(position: number, element: E): void;
+  public addAt(position: number, elements: E[]): void;
+  public addAt(position: number, elementOrElements: E | E[]): void {
     let left = this.originalList.slice(0, position);
     let right = this.originalList.slice(position);
-    if (typeof elementOrElements === "number") {
+    if (elementOrElements instanceof Array) {
+      this.originalList = left.concat(elementOrElements, right);
+    } else {
       left.push(elementOrElements);
       this.originalList = left.concat(right);
-    } else {
-      this.originalList = left.concat(elementOrElements, right);
     }
   }
 
-  public removeAt(position: number): number {
+  public removeAt(position: number): E | number {
     // 指定した位置にある要素を削除します。削除した要素を返します。
     if (position >= this.originalList.length) {
       console.log("Invalid position. Position is bigger than ths list length.");
@@ -277,23 +279,23 @@ class IntegerArrayList extends AbstractListInteger {
     }
   }
 
-  public subList(start: number): IntegerArrayList; // AbstractListIntegerの部分リストを、指定された位置から最後まで返します。
-  public subList(start: number, end: number): IntegerArrayList; // startからendまでのAbstractListIntegerの部分リストを返します。
-  public subList(start: number, end?: number): IntegerArrayList {
+  public subList(start: number): ArrayList<E>; // AbstractListの部分リストを、指定された位置から最後まで返します。
+  public subList(start: number, end: number): ArrayList<E>; // startからendまでのAbstractListの部分リストを返します。
+  public subList(start: number, end?: number): ArrayList<E> {
     let array = [];
     if (typeof end === "number") {
       array = this.originalList.slice(start, end);
     } else {
       array = this.originalList.slice(start);
     }
-    return new IntegerArrayList(array);
+    return new ArrayList(array);
   }
 }
 
 // 双方向リスト
-// class IntegerLinkedList extends AbstractListInteger {
-//   private _head: NodeInt | undefined;
-//   private _tail: NodeInt | undefined;
+// class IntegerLinkedList extends AbstractList {
+//   private _head: Node | undefined;
+//   private _tail: Node | undefined;
 
 //   constructor();
 //   constructor(arr: number[]);
@@ -306,10 +308,10 @@ class IntegerArrayList extends AbstractListInteger {
 //     }
 
 //     super(arr);
-//     this._head = new NodeInt(arr[0]);
+//     this._head = new Node(arr[0]);
 //     let currentNode = this._head;
 //     for (let i = 1; i < arr.length; i++) {
-//       currentNode.next = new NodeInt(arr[i]);
+//       currentNode.next = new Node(arr[i]);
 //       currentNode.next.prev = currentNode;
 //       currentNode = currentNode.next;
 //     }
@@ -333,14 +335,14 @@ class IntegerArrayList extends AbstractListInteger {
 //       arr.push(elementOrElements);
 //       this.originalList = arr;
 
-//       if(this._head === undefined) this._head = new NodeInt(elementOrElements);
+//       if(this._head === undefined) this._head = new Node(elementOrElements);
 
 //     } else this.originalList.concat(elementOrElements);
 //   }
 // }
 
-function createDeque(arr: number[]): MyDequeInt {
-  let deque = new MyDequeInt();
+function createDeque<E>(arr: E[]): MyDeque<E> {
+  let deque = new MyDeque<E>();
   deque.push(arr[0]);
 
   for (let i = 1; i < arr.length; i++) {
@@ -349,8 +351,6 @@ function createDeque(arr: number[]): MyDequeInt {
 
   return deque;
 }
-
-
 
 // let deque = createDeque([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 // console.log(deque.peekFirst());
