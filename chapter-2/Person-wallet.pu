@@ -1,0 +1,30 @@
+@startuml Person-wallet
+
+class Person{
+  - firstName: string
+  - lastName: string
+  - age: number
+  - heightM: number
+  - weightKg: number
+  - denomination: string
+
+  + constructor()
+}
+
+class Wallet{
+  - bill1: number
+  - bill5: number
+  - bill10: number
+  - bill20: number
+  - bill50: number
+  - bill100: number
+
+  + constructor()
+}
+
+Person o--> "0..1" Wallet
+Person o--> "1" Address
+Person *--> "1" BMI
+Person *--> "1" Name
+
+@enduml

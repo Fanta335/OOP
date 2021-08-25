@@ -1,0 +1,37 @@
+@startuml Farm-Simulator
+
+class Animal
+
+class Mammal
+
+class Bird
+
+class Cow
+
+class Horse
+
+class Person
+
+class Chicken
+
+class Parrot
+
+class Barn
+
+Animal <|-- Mammal
+Animal <|-- Bird
+Mammal <|-- Cow
+Mammal <|-- Horse
+Mammal <|-- Person
+Bird <|-- Chicken
+Bird <|-- Parrot
+Barn --> Cow
+Barn --> Horse
+Barn --> Chicken
+Person o--> Barn
+
+
+
+
+
+@enduml
